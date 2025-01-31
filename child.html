@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Fair</title>
+    <link rel="preload" href="./Assets/book fair_background.svg" as="image">
+    <link rel="preload" href="./Assets/logo-05.svg" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffb800;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Background image with fade effect */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('./Assets/book fair_background.svg') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.3; /* Adjust opacity for fade effect */
+            z-index: -1; /* Keeps it behind content */
+        }
+
+       
+    .container {
+      margin: 5vh auto;
+   
+      padding: 4vw;
+      color: #fff;
+    }
+
+    .question {
+      font-size: 3vw;
+      margin-bottom: 4vw;
+      /* height: 8vw; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2vw;
+      justify-items: center;
+      margin: auto;
+    }
+
+    .option {
+      padding: 1.5vw 2vw;
+      background: #fff;
+      color: #521570;
+      border: none;
+      border-radius: 68px;
+      cursor: pointer;
+      font-size: 1.5vw;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transition: background 0.3s;
+      width: 80%;
+     
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .option-number {
+      width: 2vw;
+      height: 2vw;
+      color:#521570;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1vw;
+      font-size: 1.5vw;
+    }
+    .option:hover{
+        background-color: #521570;
+        color: #fff;
+    }
+   
+    .result {
+      font-size: 2.5vw;
+      margin-top: 12vw;
+    }
+ 
+    .btn {
+      padding: 1.5vw 3vw;
+      margin-top: 2vw;
+      background: #521570;
+      color: white;
+      border: none;
+      border-radius: 48px;
+      cursor: pointer;
+      font-size: 1.5vw;
+      box-shadow: 0 0 5px #48016b, 0 0 10px #380154, 0 0 15px #2c0142;
+transition: box-shadow 0.3s ease-in-out;
+
+    }
+
+    .btn:hover {
+      background: #2c0142;
+      box-shadow: 0 0 5px #29033c, 0 0 10px #20032e, 0 0 15px #20042e;
+    }
+    .btn2 {
+      padding: 1.5vw 3vw;
+      margin-top: 2vw;
+      background: #521570;
+      color: white;
+      border: none;
+      border-radius: 48px;
+      cursor: pointer;
+      font-size: 1.5vw;
+      box-shadow: 0 0 5px #48016b, 0 0 10px #380154, 0 0 15px #2c0142;
+transition: box-shadow 0.3s ease-in-out;
+
+    }
+
+    .btn2:hover {
+      background: #2c0142;
+      box-shadow: 0 0 5px #29033c, 0 0 10px #20032e, 0 0 15px #20042e;
+    }
+    #home-btn {
+      position: fixed;
+      bottom: 6vw;
+      left: 50%;
+      transform: translateX(-125%);
+      z-index: 1000;
+    }
+
+    #next-btn {
+      position: fixed;
+      bottom: 6vw;
+      left: 50%;
+      transform: translateX(46%);
+      z-index: 1000;
+}
+
+    .hidden {
+      display: none;
+    }
+
+ 
+
+    /* Firecracker Animation */
+    .firecracker-container {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .firecracker {
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, white, yellow, red);
+      position: absolute;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+      opacity: 0.9;
+    }
+
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0.7);
+        opacity: 0;
+      }
+    }
+
+    
+   
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translateY(-50vh) rotate(10deg);
+        opacity: 0.9;
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(-10deg);
+        opacity: 0;
+      }
+    }
+
+    </style>
+</head>
+<body>
+
+
+    <div class="container">
+        <div id="quiz-section">
+          <div id="question-container">
+           <div  style="margin-bottom: 15vw;">
+            <p class="question" id="question-text"></p>
+            <div class="options" id="options-container"></div>
+        </div>
+            <div class="button-container">
+              <button class="btn" id="home-btn" onclick="goHome()">Go Home</button>
+              <button class="btn2" id="next-btn" onclick="showCorrectAndNext()">Next</button>
+            </div>
+             </div>
+        </div>
+    
+        <div id="result-section" class="hidden">
+          <p class="result" id="result-text"></p>
+          <button class="btn hidden" id="certificate-btn" onclick="redirectToCertificate()">Download Certificate</button>
+          <button class="btn hidden" id="play-again-btn" onclick="redirectToQues()" style="margin-left: 16vw;">Play Again</button>
+        </div>
+      </div>
+    
+      <script>
+       const quizData = [
+            { question: "1. Who is the author of the book 'Kabuliwala'?", options: ["Ramesh Menon", "Rabindranath Tagore", "Kalidas", "Vikram Seth"], correct: 1 },
+            { question: "2. What part of the plant conducts photosynthesis?", options: ["Leaves", "Roots", "Stems", "Branches"], correct: 0 },
+            { question: "3. Which one of the following is a native tree of India?", options: ["Willow", "Banyan", "Lemon", "Frangipani"], correct: 1 },
+            { question: "4. Which planet is known as 'Red Planet'?", options: ["Mars", "Jupiter", "Saturn", "Neptune"], correct: 0 },
+            { question: "5. To whom does the autobiography titled 'Wings of Fire' belong?", options: ["Mahatma Gandhi", "Rabindranath Tagore", "Jawaharlal Nehru", "A.P.J. Abdul Kalam"], correct: 3 },
+            { question: "6. Fathometer is used to measure", options: ["Earthquakes", "Rainfall", "Ocean depth", "Sound intensity"], correct: 2 },
+            { question: "7. Which one of the following is the natural satellite of the Earth?", options: ["Moon", "Sun", "Lo", "Titan"], correct: 0 },
+            { question: "8. Bamboo is a type of", options: ["Shrub", "Tree", "Grass", "Herb"], correct: 2 },
+            { question: "9. Which is the highest Civilian award given by the Government of India?", options: ["Padma Vibhusan", "Bharat Ratna", "Padma Bhushan", "Padma Shri"], correct: 1 },
+            { question: "10. Which is the largest ocean in the world?", options: ["Pacific Ocean", "Indian Ocean", "Arctic Ocean", "Atlantic Ocean"], correct: 0 },
+        ];
+    
+        const questionText = document.getElementById("question-text");
+        const optionsContainer = document.getElementById("options-container");
+        const resultText = document.getElementById("result-text");
+        const resultSection = document.getElementById("result-section");
+      
+        const certificateBtn = document.getElementById("certificate-btn");
+        const playAgainBtn = document.getElementById("play-again-btn");
+        const nextBtn = document.getElementById("next-btn");
+        let currentQuestion = 0;
+        let score = 0;
+       
+    
+        const loadQuestion = () => {
+          const currentQuiz = quizData[currentQuestion];
+          questionText.textContent = currentQuiz.question;
+          optionsContainer.innerHTML = "";
+    
+          currentQuiz.options.forEach((option, index) => {
+            const optionBtn = document.createElement("button");
+            optionBtn.classList.add("option");
+    
+            const optionNumber = document.createElement("div");
+            optionNumber.classList.add("option-number");
+            optionNumber.textContent = index + 1;
+    
+            const optionText = document.createElement("span");
+            optionText.textContent = option;
+    
+            optionBtn.appendChild(optionNumber);
+            optionBtn.appendChild(optionText);
+            optionBtn.onclick = () => handleAnswer(index, optionBtn);
+    
+            optionsContainer.appendChild(optionBtn);
+          });
+    
+         
+        };
+    
+        
+    
+        const handleAnswer = (selectedIndex, element) => {
+         
+          const currentQuiz = quizData[currentQuestion];
+          if (selectedIndex === currentQuiz.correct) {
+            score++;
+            element.style.backgroundColor = '#4CAF50';
+            triggerFirecrackerAnimation(element);
+          } else {
+            element.style.backgroundColor = '#F44336';
+            triggerSadEmojiAnimation(element);
+          }
+          setTimeout(() => moveToNextQuestion(), 1000);
+        };
+        const highlightCorrectOption = () => {
+          const currentQuiz = quizData[currentQuestion];
+          const allOptions = optionsContainer.querySelectorAll(".option");
+          allOptions.forEach((option, index) => {
+            if (index === currentQuiz.correct) {
+              option.style.backgroundColor = "#4CAF50"; // Highlight the correct option
+            }
+          });
+        };
+    
+        const showCorrectAndNext = () => {
+       
+    
+          // Highlight the correct option
+          highlightCorrectOption();
+    
+          // Move to the next question after a short delay
+          setTimeout(() => {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+              loadQuestion();
+            } else {
+              showResult();
+            }
+          }, 1000);
+        };
+    
+        const moveToNextQuestion = () => {
+          const currentQuiz = quizData[currentQuestion];
+          const allOptions = optionsContainer.querySelectorAll('.option');
+    
+          // If time is up, highlight the correct option
+          if (currentQuestion < quizData.length) {
+            const correctOption = allOptions[currentQuiz.correct];
+            correctOption.style.backgroundColor = '#4CAF50'; // Green for correct answer
+            setTimeout(() => {
+              currentQuestion++;
+              if (currentQuestion < quizData.length) {
+                loadQuestion();
+              } else {
+                showResult();
+              }
+            }, 1000); // wait before moving to the next question
+          } else {
+            showResult();
+          }
+        };
+    
+    
+        const showResult = () => {
+          document.getElementById("quiz-section").classList.add("hidden");
+          resultSection.classList.remove("hidden");
+    
+          const percentageScore = (score / quizData.length) * 100;
+    
+          localStorage.setItem('quizScore', score);
+          localStorage.setItem('totalQuestions', quizData.length);
+
+          if (percentageScore >= 60) {
+            certificateBtn.classList.remove("hidden");
+            window.location.href = `congrats.html?score=${score}&total=${quizData.length}`;
+
+          } else {
+            resultText.textContent = `You scored ${score}/${quizData.length}. Better Luck Next Time.`;
+            playAgainBtn.classList.remove("hidden");
+          }
+        };
+    
+        const triggerFirecrackerAnimation = (element) => {
+          const firecrackerContainer = document.createElement('div');
+          firecrackerContainer.classList.add('firecracker-container');
+          document.body.appendChild(firecrackerContainer);
+    
+          const rect = element.getBoundingClientRect();
+          firecrackerContainer.style.left = `${rect.left + rect.width / 2}px`;
+          firecrackerContainer.style.top = `${rect.top + rect.height / 2}px`;
+    
+          for (let i = 0; i < 50; i++) {
+            const firecracker = document.createElement('div');
+            firecracker.classList.add('firecracker');
+            firecracker.style.setProperty('--x', `${Math.random() * 300 - 150}px`);
+            firecracker.style.setProperty('--y', `${Math.random() * 300 - 150}px`);
+            firecrackerContainer.appendChild(firecracker);
+          }
+    
+          setTimeout(() => {
+            firecrackerContainer.remove();
+          }, 1000);
+        };
+    
+    
+        const triggerSadEmojiAnimation = (element) => {
+          const sadEmoji = document.createElement('div');
+          sadEmoji.classList.add('sad-emoji');
+          sadEmoji.textContent = '😢';
+    
+          const rect = element.getBoundingClientRect();
+          sadEmoji.style.left = `${rect.left + rect.width / 2}px`;
+          sadEmoji.style.top = `${rect.top + rect.height / 2}px`; // Place emoji slightly above the button
+          sadEmoji.style.position = 'absolute';
+          sadEmoji.style.fontSize = '3vw';
+          sadEmoji.style.zIndex = 1000;
+    
+          document.body.appendChild(sadEmoji);
+    
+          setTimeout(() => {
+            sadEmoji.remove();
+          }, 1000); // Remove after animation
+        };
+    
+    
+        const goHome = () => {
+          window.location.href = "index.html";
+        };
+    
+        const redirectToCertificate = () => {
+          window.location.href = "certificate.html";
+        };
+    
+        const redirectToQues = () => {
+          window.location.href = "child.html";
+        };
+    
+        loadQuestion();
+      </script>
+    </body>
+    
+    </html>
+
+
+    
+    
+

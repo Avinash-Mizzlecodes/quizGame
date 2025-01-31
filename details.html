@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Fair</title>
+  <link rel="preload" href="./Assets/book fair_background.svg" as="image">
+  <link rel="preload" href="./Assets/logo-05.svg" as="image">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      margin: 0;
+      background: url('./Assets/book fair_background.svg') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #ffb800;
+      overflow: hidden;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header {
+      position: relative;
+      top: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0 0vw;
+    }
+
+    .logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 25vw;
+      height: auto;
+    }
+
+    .form-container {
+      width: 500px;
+      padding: 40px;
+      background: white;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      margin-top: 18vw;
+      margin-left: 5vw;
+      height: 500px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: none;
+      border: none;
+      font-size: 2vw;
+      cursor: pointer;
+      color: #ffb800;
+    }
+
+    h2 {
+      font-size: 24px;
+      color: #4A0080;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .dot {
+      color: orange;
+      margin-left: 1vw;
+      margin-right: 1vw;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .form-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-top: 15px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .form-group1 label {
+      font-size: 16px;
+      margin-right: 10px;
+      /* white-space: nowrap; */
+    }
+
+    .form-group2 label {
+      font-size: 16px;
+      margin-right: 10px;
+      /* white-space: nowrap; */
+    }
+
+    .form-group3 label {
+      font-size: 16px;
+      margin-right: 10px;
+      /* white-space: nowrap; */
+    }
+
+    .form-group label {
+      font-size: 16px;
+      margin-right: 10px;
+      /* white-space: nowrap; */
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-bottom: 1px solid #4A0080;
+      outline: none;
+    }
+
+    label {
+      font-size: 16px;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #4A0080;
+      border-radius: 5px;
+      margin-top: 5px;
+      font-family: "Poppins", sans-serif;
+    }
+
+    .submit-btn {
+      width: 50%;
+      padding: 15px;
+      background: orange;
+      color: white;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      margin-top: 3vw;
+      margin-left: 6vw;
+      font-family: "Poppins", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .submit-btn:hover {
+      background-color: #e4b641;
+    }
+
+    .form-group.checkbox-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Space between checkbox and label */
+  width: 100%;
+  margin-top: 15px;
+}
+
+.checkbox-group input {
+  width: auto; /* Prevent the checkbox from stretching */
+  margin-top: 15px;
+}
+
+.disclaimer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #4A0080;
+      text-align: center;
+      font-family: "Poppins", sans-serif;
+    }
+
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div>
+      <img class="side-image" src="./Assets/boo bundle-05.svg" alt="Book img" style="  width: 14vw;
+            max-width: 500px; 
+            height: auto;
+            animation: fadeIn 2s ease-out, float 6s infinite ease-in-out;">
+    </div>
+
+    <div>
+      <img class="logo" src="./Assets/logo-05.svg" alt="Logo img">
+     </div>
+
+     <div class="form-container">
+      <a href="index.html">
+        <button class="close-btn">&times;</button>
+      </a>
+      <h2><span class="dot">&bull;</span> Enter Your Details <span class="dot">&bull;</span></h2>
+      <form id="userForm">
+        <!-- Form fields will be inserted dynamically based on selected age -->
+      </form>
+    </div>
+
+    <div>
+      <img class="side-image right-image" src="./Assets/boo bundle-06.svg" alt="Fair img" style="  width: 17vw;
+            max-width: 500px; 
+            height: auto;
+            margin-right: 2vw;
+            margin-bottom: 2vw;
+            animation: fadeIn 2s ease-out, float 6s infinite ease-in-out;">
+    </div>
+
+
+    
+  </header>
+
+  <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    let selectedAgeGroup = localStorage.getItem("selectedAgeGroup");
+    let form = document.getElementById("userForm");
+
+    if (selectedAgeGroup) {
+        form.innerHTML = ''; // Clear existing form
+        let fields = '';
+
+        if (selectedAgeGroup.includes("5-8")) {
+            fields = `
+                <div class="form-group">
+                    <label for="guardian-name">* Guardian Name</label>
+                    <input type="text" id="guardian-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="guardian-email">* Guardian Email</label>
+                    <input type="email" id="guardian-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="guardian-phone">* Guardian Phone</label>
+                    <input type="tel" id="guardian-phone" required pattern="[6-9]{1}[0-9]{9}">
+                </div>
+            `;
+        } else {
+            fields = `
+                <div class="form-group">
+                    <label for="name">* Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">* Email address</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">* Phone</label>
+                    <input type="tel" id="phone" required pattern="[6-9]{1}[0-9]{9}">
+                </div>
+            `;
+        }
+
+        form.innerHTML = `
+            ${fields}
+            <div class="form-group">
+                <label for="dob">* Date of Birth</label>
+                <input type="date" id="dob" required>
+            </div>
+            <div class="form-group checkbox-group">
+                <input type="checkbox" id="confirm" required>
+                <label for="confirm">I hereby declare that the information provided is true and accurate.</label>
+            </div>
+            <button type="submit" class="submit-btn" disabled id="submit-btn">LET’S START</button>
+            <p class="disclaimer">To be eligible to receive a Certificate of Participation, a participant must answer at least 6 out of 10 questions correctly.</p>
+        `;
+
+        let inputs = form.querySelectorAll("input");
+        let submitBtn = document.getElementById("submit-btn");
+
+        function validateForm() {
+            let allFilled = Array.from(inputs).every(input => input.type === "checkbox" ? input.checked : input.value.trim() !== "");
+            submitBtn.disabled = !allFilled;
+        }
+
+        inputs.forEach(input => input.addEventListener("input", validateForm));
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent page reload
+            
+            console.log("Form submitted!"); // Debugging log
+
+            const formData = {
+                selectedAgeGroup,
+                name: document.getElementById("name")?.value || '',
+                email: document.getElementById("email")?.value || document.getElementById("guardian-email")?.value || '',
+                phone: document.getElementById("phone")?.value || '',
+                dob: document.getElementById("dob").value,
+                gName: document.getElementById("guardian-name")?.value || '',
+                gPhone: document.getElementById("guardian-phone")?.value || '',
+            };
+
+            console.log("Sending data:", formData); // Debugging log
+
+            try {
+                let response = await fetch("http://localhost:5000/user/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                let result = await response.json();
+                console.log("Server response:", result);
+
+                if (response.ok) {
+                    alert(result.message);
+                    
+                    // Redirect based on age group
+                    if (selectedAgeGroup.includes("5-8")) {
+                        window.location.href = "child.html";
+                    } else if (selectedAgeGroup.includes("9-17")) {
+                        window.location.href = "teen.html";
+                    } else if (selectedAgeGroup.includes("18+")) {
+                        window.location.href = "adult.html";
+                    }
+                } else {
+                    alert("Error: " + result.message);
+                }
+            } catch (error) {
+                console.error("Fetch error:", error);
+                alert("Something went wrong. Please try again.");
+            }
+        });
+    } else {
+        alert("Please select your age group first!");
+        window.location.href = "index.html";
+    }
+});
+
+
+
+    
+    </script>
+    
+
+</body>
+
+</html>

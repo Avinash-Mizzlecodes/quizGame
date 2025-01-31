@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Fair</title>
+    <link rel="preload" href="./Assets/book fair_background.svg" as="image">
+    <link rel="preload" href="./Assets/logo-05.svg" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            background: url('./Assets/book fair_background.svg') no-repeat center center fixed;
+            background-size: cover;
+            background-color: #ffb800;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .side-image {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14vw;
+            max-width: 500px;
+            height: auto;
+        }
+
+        .left-image {
+            left: 2vw;
+        }
+
+        .right-image {
+            right: 2vw;
+            width: 15vw;
+        }
+
+        .mid-container {
+            position: absolute;
+            top: 2vh;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .base-image {
+            width: 25vw;
+            position: relative;
+        }
+
+        /* Animation for scaling and disappearing */
+        @keyframes scaleAndDisappear {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .animate-img {
+            position: absolute;
+            animation: scaleAndDisappear 4s ease-in-out forwards;
+        }
+
+        .animate-img:nth-child(1) {
+            animation-delay: 0s;
+            top: 50%;
+            left: 50%;
+        }
+
+        .animate-img:nth-child(2) {
+            animation-delay: 1s;
+            top: 50%;
+            left: 100%;
+        }
+
+        .animate-img:nth-child(3) {
+            animation-delay: 1s;
+           
+            left: 50%;
+        }
+
+        .animate-img:nth-child(4) {
+            animation-delay: 1s;
+            right: 50%;
+            top: 50%;
+        }
+        h1{
+            color: red;
+            font-family: "Poppins", sans-serif;
+            font-size: 5vw;
+            margin-top: -2vw;
+
+        }
+        .dwnld-btn {
+    position: absolute;
+    top: 91%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    background-color: transparent;
+    color: #521570;
+    border: 2px solid #521570;
+    font-size: 36px;
+    cursor: pointer;
+    z-index: 3;
+    border-radius: 68px;
+    transition: box-shadow 0.3s ease-in-out;
+    font-family: "Poppins", sans-serif;
+}
+.dwnld-btn:hover {
+            background-color: #521570; /* Change button color on hover */
+            color:#FFB800;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <!-- Left Image -->
+        <img class="side-image left-image" src="./Assets/2-08.svg" alt="Book img">
+        
+        <!-- Center Animation -->
+        <div class="mid-container">
+            <img src="./Assets/2-06.svg" class="base-image" alt="Mid Image">
+
+            <!-- 4 animated images scaling and disappearing -->
+            <img src="./Assets/party-09.svg" class="animate-img">
+            <img src="./Assets/party-09.svg" class="animate-img">
+            <img src="./Assets/party-09.svg" class="animate-img">
+            <img src="./Assets/party-09.svg" class="animate-img">
+        </div>
+        <h1>Congratulations!</h1>
+        <p id="score" style="font-size: 3vw; margin-left: 7vw; font-family: 'Poppins', sans-serif; color: #521570;"></p>
+        
+        <a href="certificate.html">
+            <button class="dwnld-btn">Download Certificate</button>
+        </a>
+        <!-- Right Image -->
+        <img class="side-image right-image" src="./Assets/2-07.svg" alt="Fair img">
+    </header>
+    <script>
+        window.addEventListener('load', function() {
+            const score = localStorage.getItem('quizScore');
+            const totalQuestions = localStorage.getItem('totalQuestions');
+        
+            if (score !== null && totalQuestions !== null) {
+                document.getElementById("score").textContent = ` You scored ${score}/${totalQuestions}.`;
+        
+                // Clear stored values
+                localStorage.removeItem('quizScore');
+                localStorage.removeItem('totalQuestions');
+            } else {
+                console.error("No score data found in localStorage");
+            }
+        });
+        </script>
+</body>
+</html>
