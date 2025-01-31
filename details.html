@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Sending data:", formData); // Debugging log
 
             try {
-                let response = await fetch("http://localhost:5000/user/signup", {
+                let response = await fetch(`https://f520-103-89-57-218.ngrok-free.app/user/signup`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

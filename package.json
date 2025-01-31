@@ -125,8 +125,14 @@
     "whatwg-url": "^14.1.0",
     "xtend": "^4.0.2"
   },
+  "devDependencies": {
+    "vite": "^6.0.5"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [],
   "author": "",
