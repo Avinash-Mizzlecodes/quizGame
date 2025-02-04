@@ -41,15 +41,16 @@
 
     .form-container {
       width: 500px;
-      padding: 40px;
+      /* Reduced width */
+      padding: 10px 40px 10px 30px;
       background: white;
-      text-align: center;
       border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       position: relative;
-      margin-top: 18vw;
-      margin-left: 5vw;
-      height: 500px;
+      margin-top: 30vh;
+      height: auto;
+      /* Let content define height */
+      margin-right: 5%;
     }
 
     .close-btn {
@@ -64,7 +65,7 @@
     }
 
     h2 {
-      font-size: 24px;
+      font-size: 20px;
       color: #4A0080;
       font-family: "Poppins", sans-serif;
     }
@@ -83,42 +84,26 @@
 
     .form-group {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
       width: 100%;
-      margin-top: 15px;
-      font-family: "Poppins", sans-serif;
-    }
-
-    .form-group1 label {
-      font-size: 16px;
-      margin-right: 10px;
-      /* white-space: nowrap; */
-    }
-
-    .form-group2 label {
-      font-size: 16px;
-      margin-right: 10px;
-      /* white-space: nowrap; */
-    }
-
-    .form-group3 label {
-      font-size: 16px;
-      margin-right: 10px;
-      /* white-space: nowrap; */
+      margin-bottom: 15px;
     }
 
     .form-group label {
-      font-size: 16px;
-      margin-right: 10px;
-      /* white-space: nowrap; */
+      font-size: 14px;
+      color: #4A0080;
+      font-family: "Poppins", sans-serif;
+      margin-bottom: 5px;
     }
 
     .form-group input {
       width: 100%;
-      padding: 10px;
-      border: none;
+      padding: 8px;
       border-bottom: 1px solid #4A0080;
+      border-radius: 5px;
       outline: none;
+      font-family: "Poppins", sans-serif;
     }
 
     label {
@@ -136,47 +121,52 @@
     }
 
     .submit-btn {
-      width: 50%;
-      padding: 15px;
+      width: 100%;
+      padding: 12px;
       background: orange;
       color: white;
-      font-size: 18px;
+      font-size: 16px;
       border: none;
       cursor: pointer;
-      margin-top: 3vw;
-      margin-left: 6vw;
       font-family: "Poppins", sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      border-radius: 5px;
+      margin-top: 15px;
     }
 
     .submit-btn:hover {
       background-color: #e4b641;
     }
 
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
     .form-group.checkbox-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px; /* Space between checkbox and label */
-  width: 100%;
-  margin-top: 15px;
-}
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      /* Space between checkbox and label */
+      width: 100%;
+      margin-top: 15px;
+    }
 
-.checkbox-group input {
-  width: auto; /* Prevent the checkbox from stretching */
-  margin-top: 15px;
-}
+    .checkbox-group input {
+      width: auto;
+      /* Prevent the checkbox from stretching */
+      margin-top: 15px;
+    }
 
-.disclaimer {
+    .disclaimer {
       margin-top: 20px;
       font-size: 14px;
       color: #4A0080;
       text-align: center;
       font-family: "Poppins", sans-serif;
     }
-
   </style>
 </head>
 
@@ -191,13 +181,14 @@
 
     <div>
       <img class="logo" src="./Assets/logo-05.svg" alt="Logo img">
-     </div>
+    </div>
 
-     <div class="form-container">
+    <div class="form-container">
       <a href="index.html">
         <button class="close-btn">&times;</button>
       </a>
-      <h2><span class="dot">&bull;</span> Enter Your Details <span class="dot">&bull;</span></h2>
+      <h2 style="text-align: center;"><span class="dot">&bull;</span> Enter Your Details <span class="dot">&bull;</span>
+      </h2>
       <form id="userForm">
         <!-- Form fields will be inserted dynamically based on selected age -->
       </form>
@@ -213,21 +204,21 @@
     </div>
 
 
-    
+
   </header>
 
   <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-    let selectedAgeGroup = localStorage.getItem("selectedAgeGroup");
-    let form = document.getElementById("userForm");
+    document.addEventListener("DOMContentLoaded", function () {
+      let selectedAgeGroup = localStorage.getItem("selectedAgeGroup");
+      let form = document.getElementById("userForm");
 
-    if (selectedAgeGroup) {
+      if (selectedAgeGroup) {
         form.innerHTML = ''; // Clear existing form
         let fields = '';
 
         if (selectedAgeGroup.includes("5-8")) {
-            fields = `
+          fields = `
                 <div class="form-group">
                     <label for="guardian-name">* Guardian Name</label>
                     <input type="text" id="guardian-name" required>
@@ -242,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
             `;
         } else {
-            fields = `
+          fields = `
                 <div class="form-group">
                     <label for="name">* Name</label>
                     <input type="text" id="name" required>
@@ -260,14 +251,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         form.innerHTML = `
             ${fields}
-            <div class="form-group">
-                <label for="dob">* Date of Birth</label>
-                <input type="date" id="dob" required>
-            </div>
-            <div class="form-group checkbox-group">
-                <input type="checkbox" id="confirm" required>
-                <label for="confirm">I hereby declare that the information provided is true and accurate.</label>
-            </div>
+<div class="form-group">
+    <label for="dob">* Date of Birth</label>
+    <input type="text" id="dob" placeholder="DD/MM/YYYY" required>
+</div>
+<div class="form-group checkbox-group">
+    <label for="confirm">
+        <input type="checkbox" id="confirm" required>
+        I hereby declare that the information provided is true and accurate to the best of my knowledge. I take full responsibility for the authenticity of the details mentioned.
+    </label>
+</div>
             <button type="submit" class="submit-btn" disabled id="submit-btn">LET’S START</button>
             <p class="disclaimer">To be eligible to receive a Certificate of Participation, a participant must answer at least 6 out of 10 questions correctly.</p>
         `;
@@ -276,71 +269,77 @@ document.addEventListener("DOMContentLoaded", function () {
         let submitBtn = document.getElementById("submit-btn");
 
         function validateForm() {
-            let allFilled = Array.from(inputs).every(input => input.type === "checkbox" ? input.checked : input.value.trim() !== "");
-            submitBtn.disabled = !allFilled;
+          let allFilled = Array.from(inputs).every(input => input.type === "checkbox" ? input.checked : input.value.trim() !== "");
+          submitBtn.disabled = !allFilled;
         }
 
         inputs.forEach(input => input.addEventListener("input", validateForm));
 
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault(); // Prevent page reload
-            
-            console.log("Form submitted!"); // Debugging log
-
-            const formData = {
-                selectedAgeGroup,
-                name: document.getElementById("name")?.value || '',
-                email: document.getElementById("email")?.value || document.getElementById("guardian-email")?.value || '',
-                phone: document.getElementById("phone")?.value || '',
-                dob: document.getElementById("dob").value,
-                gName: document.getElementById("guardian-name")?.value || '',
-                gPhone: document.getElementById("guardian-phone")?.value || '',
-            };
-
-            console.log("Sending data:", formData); // Debugging log
-
-            try {
-                let response = await fetch(`https://f520-103-89-57-218.ngrok-free.app/user/signup`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(formData),
-                });
-
-                let result = await response.json();
-                console.log("Server response:", result);
-
-                if (response.ok) {
-                    alert(result.message);
-                    
-                    // Redirect based on age group
-                    if (selectedAgeGroup.includes("5-8")) {
-                        window.location.href = "child.html";
-                    } else if (selectedAgeGroup.includes("9-17")) {
-                        window.location.href = "teen.html";
-                    } else if (selectedAgeGroup.includes("18+")) {
-                        window.location.href = "adult.html";
-                    }
-                } else {
-                    alert("Error: " + result.message);
-                }
-            } catch (error) {
-                console.error("Fetch error:", error);
-                alert("Something went wrong. Please try again.");
-            }
+        inputs.forEach(input => {
+            input.addEventListener("touchstart", function () {
+                this.focus();
+            });
         });
-    } else {
+
+        form.addEventListener("submit", async function (event) {
+          event.preventDefault(); // Prevent page reload
+
+          console.log("Form submitted!"); // Debugging log
+
+          const formData = {
+            selectedAgeGroup,
+            name: document.getElementById("name")?.value || '',
+            email: document.getElementById("email")?.value || document.getElementById("guardian-email")?.value || '',
+            phone: document.getElementById("phone")?.value || '',
+            dob: document.getElementById("dob").value,
+            gName: document.getElementById("guardian-name")?.value || '',
+            gPhone: document.getElementById("guardian-phone")?.value || '',
+          };
+
+          console.log("Sending data:", formData); // Debugging log
+
+          try {
+            let response = await fetch(`https://eb5f-2409-40e3-102f-749b-2c2f-ce04-33f9-2c05.ngrok-free.app/user/signup`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
+            });
+
+            let result = await response.json();
+            console.log("Server response:", result);
+
+            if (response.ok) {
+     
+
+              // Redirect based on age group
+              if (selectedAgeGroup.includes("5-8")) {
+                window.location.href = "child.html";
+              } else if (selectedAgeGroup.includes("9-17")) {
+                window.location.href = "teen.html";
+              } else if (selectedAgeGroup.includes("18+")) {
+                window.location.href = "adult.html";
+              }
+            } else {
+              alert("Error: " + result.message);
+            }
+          } catch (error) {
+            console.error("Fetch error:", error);
+            alert("Something went wrong. Please try again.");
+          }
+        });
+      } else {
         alert("Please select your age group first!");
         window.location.href = "index.html";
-    }
-});
+      }
+    });
 
 
 
-    
-    </script>
-    
+
+  </script>
+
 
 </body>
 

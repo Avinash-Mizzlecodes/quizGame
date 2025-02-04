@@ -90,6 +90,12 @@
             animation: rotate3D 10s linear;
             transform-style: preserve-3d;
             cursor: pointer;
+            transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+        }
+
+        .img1.active {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 20px rgb(41, 3, 177)) drop-shadow(0 0 30px rgb(24, 2, 151));
         }
 
         h6 {
@@ -102,47 +108,14 @@
         @keyframes rotate3D {
             0% {
                 transform: rotateY(0deg);
-                /* Start from 0 degrees */
             }
 
             50% {
                 transform: rotateY(180deg);
-                /* Halfway rotated */
             }
 
             100% {
                 transform: rotateY(360deg);
-                /* Complete the rotation */
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-                /* Start slightly below */
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-                /* Move to the original position */
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-15px);
-                /* Move up slightly */
-            }
-
-            100% {
-                transform: translateY(0);
-                /* Return to the original position */
             }
         }
     </style>
@@ -157,25 +130,19 @@
         </div>
         <div>
             <img class="logo" src="./Assets/logo-05.svg" alt="Logo img">
-            <button class="quiz-btn">Literary Quiz</button>
+            <button class="quiz-btn">Quiz It Out</button>
             <div class="mid-container">
                 <div onclick="selectAge(this, event)">
-
                     <img class="img1" src="./Assets/faces-07.svg" alt="img1">
                     <h6>(5-8 Years)</h6>
-
                 </div>
                 <div onclick="selectAge(this, event)">
-
                     <img class="img1" src="./Assets/faces-08.svg" alt="img2">
                     <h6>(9-17 Years)</h6>
-
                 </div>
                 <div onclick="selectAge(this, event)">
-
                     <img class="img1" src="./Assets/faces-09.svg" alt="img3">
                     <h6>(18+ Years)</h6>
-
                 </div>
             </div>
             <a href="details.html">
@@ -189,23 +156,19 @@
     </header>
 
     <script>
-
         function selectAge(button, event) {
             event.stopPropagation();
             document.querySelectorAll('.img1').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            button.querySelector('.img1').classList.add('active');
 
-            let ageGroup = button.querySelector("h6").innerText; // Get age group text
-            localStorage.setItem("selectedAgeGroup", ageGroup); // Store in localStorage
+            let ageGroup = button.querySelector("h6").innerText;
+            localStorage.setItem("selectedAgeGroup", ageGroup);
 
             let selectBtn = document.getElementById('selectAgeBtn');
             selectBtn.classList.add('enabled');
             selectBtn.dataset.enabled = "true";
-
         }
     </script>
-
-<!-- <script type="module" src="/src/main.js"></script> -->
 
 </body>
 
